@@ -1,7 +1,7 @@
 // 1. Функция для проверки длины строки
 
 const isLessOrEqual = (string, length) => string <= length;
-isLessOrEqual();
+isLessOrEqual('проверяемая строка', 20);
 
 // console.log(isLessOrEqual('проверяемая строка', 20));
 // console.log(isLessOrEqual('проверяемая строка', 18));
@@ -15,7 +15,7 @@ const isPalindrome = (rawString) => {
 
   return string === reversedString;
 };
-isPalindrome();
+isPalindrome('топот');
 
 // console.log(isPalindrome('топот'));
 // console.log(isPalindrome('ДовОд'));
@@ -24,7 +24,7 @@ isPalindrome();
 
 /**
  * Функция принимает строку, извлекает содержащиеся в ней цифры от 0 до 9
- *  и возвращает их в виде целого положительного числа. Если в строке нет ни одной цифры,
+ * и возвращает их в виде целого положительного числа. Если в строке нет ни одной цифры,
  * функция должна вернуть NaN:
  */
 
@@ -38,7 +38,7 @@ const getNum = (str) => {
   }
   return parseInt(result, 10);
 };
-getNum();
+getNum('2023 год');
 
 // console.log(getNum('2023 год'));
 // console.log(getNum('ECMAScript 2022'));
