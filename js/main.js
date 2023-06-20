@@ -36,7 +36,7 @@ const LIKES_COUNTER = {
 };
 
 const PHOTOS_COUNT = 25;
-const COMMENTS_COUNT = 25;
+const COMMENTS_COUNT = 30;
 
 // Получение случайного числа из диапазона
 
