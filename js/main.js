@@ -35,10 +35,8 @@ const LIKES_COUNTER = {
   max: 200
 };
 
-const PHOTOS_COUNT_ID_MAX = 25;
 const PHOTOS_COUNT = 25;
-
-const NUMBER_DESCRIPTIONS_PHOTO = 25;
+const COMMENTS_COUNT = 25;
 
 // Получение случайного числа из диапазона
 
@@ -71,6 +69,9 @@ const createRandomIdFromRangeGenerator = (min, max) => {
   };
 };
 
+const generateAvatar = () => `img/avatar-${getRandomInteger(AVATAR_COUNTER.min, AVATAR_COUNTER.max)}.svg`;
+const generateUrl = () => `photos/${createRandomIdFromRangeGenerator(1, PHOTOS_COUNT)()}.jpg`;
+
 // Получение одного или двух комментариев
 
 const createMessage = () => {
@@ -79,14 +80,14 @@ const createMessage = () => {
   for (let i = 1; i <= messageCount; i++) {
     message.push(getRandomArrayElement(COMMENTS));
   }
-  return message;
+  return message.join(' ');
 };
 
 // объекты массива — список комментариев, оставленных другими пользователями к фотографии
 
 const createCommentPhoto = () => ({
   id: createRandomIdFromRangeGenerator(1, 100)(),
-  avatar: `img/avatar-${getRandomInteger(AVATAR_COUNTER.min, AVATAR_COUNTER.max)}.svg`,
+  avatar: generateAvatar(),
   message: createMessage(),
   name: getRandomArrayElement(NAME),
 });
@@ -94,14 +95,14 @@ const createCommentPhoto = () => ({
 // объекты массива — описание фотографии, опубликованной пользователем
 
 const createPhotoDescription = () => ({
-  id: createRandomIdFromRangeGenerator(1, PHOTOS_COUNT_ID_MAX)(),
-  url: `photos/${createRandomIdFromRangeGenerator(1, PHOTOS_COUNT)()}.jpg`,
+  id: createRandomIdFromRangeGenerator(1, PHOTOS_COUNT)(),
+  url: generateUrl(),
   description: getRandomArrayElement(DESCRIPTION),
   likes: getRandomInteger(LIKES_COUNTER.min, LIKES_COUNTER.max),
-  comments: Array.from({ length: getRandomInteger(0, 30) }, createCommentPhoto),
+  comments: Array.from({ length: getRandomInteger(0, COMMENTS_COUNT)}, createCommentPhoto),
 });
 
-const photoDescription = Array.from({ length: NUMBER_DESCRIPTIONS_PHOTO}, createPhotoDescription);
+const photoDescription = Array.from({ length: PHOTOS_COUNT}, createPhotoDescription);
 
 // eslint-disable-next-line no-console
 console.log(photoDescription);
