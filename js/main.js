@@ -1,6 +1,4 @@
 import {photoDescription} from './data.js';
+import {createPictures} from './pictures.js';
 
-// eslint-disable-next-line no-console
-console.log (
-  photoDescription()
-);
+createPictures(photoDescription());
