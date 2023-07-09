@@ -1,4 +1,6 @@
 import {photoDescription} from './data.js';
-import {renderPictures} from './pictures.js';
+import { renderGallery } from './gallery.js';
 
-renderPictures(photoDescription());
+const photos = photoDescription();
+
+renderGallery (photos);

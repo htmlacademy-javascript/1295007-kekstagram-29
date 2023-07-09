@@ -1,4 +1,4 @@
-import {getRandomInteger,
+import { getRandomInteger,
   getRandomArrayElement,
   createRandomIdFromRangeGenerator
 } from './util.js';
@@ -65,8 +65,8 @@ const createCommentPhoto = () => ({
 });
 
 // объекты массива — описание фотографии, опубликованной пользователем
-const createPhotoDescription = () => ({
-  id: createRandomIdFromRangeGenerator(1, PHOTOS_COUNT)(),
+const createPhotoDescription = (_, index) => ({
+  id: index + 1,
   url: generateUrl(),
   description: getRandomArrayElement(DESCRIPTION),
   likes: getRandomInteger(LIKES_COUNTER.min, LIKES_COUNTER.max),
@@ -75,4 +75,4 @@ const createPhotoDescription = () => ({
 
 const photoDescription = () => Array.from({ length: PHOTOS_COUNT}, createPhotoDescription);
 
-export {photoDescription};
+export { photoDescription };
