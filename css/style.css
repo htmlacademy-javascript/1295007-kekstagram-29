@@ -1339,7 +1339,14 @@ main {
 /* Адаптивности чуток
    ========================================================================== */
 
-@media (min-width: 1024px) {
+  .img-upload__field-wrapper--error {
+    font-size: 17px;
+    font-weight: 700;
+    color: #ff0000;
+    background-color: #00ffff;
+  }
+
+   @media (min-width: 1024px) {
   .img-upload__wrapper {
     padding-bottom: 0;
   }
