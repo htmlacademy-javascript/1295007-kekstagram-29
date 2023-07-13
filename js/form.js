@@ -1,4 +1,10 @@
-import { isEscapeKey } from './util.js';
+import { isEscapeKey, toggleBody } from './util.js';
+import { resetScale } from './scale.js';
+import {
+  destroySlider,
+  createSlider,
+  startConfigsSlider
+} from './slider.js';
 
 const uploadForm = document.querySelector('.img-upload__form');
 const fileField = uploadForm.querySelector('.img-upload__input');
@@ -24,15 +30,19 @@ const pristine = new Pristine(uploadForm, {
 
 const openModal = () => {
   uploadOverlay.classList.remove('hidden');
-  document.body.classList.add('modal-open');
+  createSlider();
+  startConfigsSlider();
+  toggleBody();
   document.addEventListener('keydown', onModalKeydown);
 };
 
 const hideModal = () => {
   uploadForm.reset();
+  resetScale();
+  destroySlider();
   pristine.reset();
   uploadOverlay.classList.add('hidden');
-  document.body.classList.remove('modal-open');
+  toggleBody();
   document.removeEventListener('keydown', onModalKeydown);
 };
 
@@ -83,13 +93,13 @@ const onFormSubmit = (evt) => {
   pristine.validate();
 };
 
-fileField.addEventListener('change', onFileFieldChange);
-closeButton.addEventListener('click', onCloseButtonClick);
-uploadForm.addEventListener('submit', onFormSubmit);
-
-function onModalKeydown(evt) {
+function onModalKeydown (evt) {
   if (isEscapeKey(evt) && !(document.activeElement === hashtagField || document.activeElement === commentField)) {
     evt.preventDefault();
     hideModal();
   }
 }
+
+fileField.addEventListener('change', onFileFieldChange);
+closeButton.addEventListener('click', onCloseButtonClick);
+uploadForm.addEventListener('submit', onFormSubmit);

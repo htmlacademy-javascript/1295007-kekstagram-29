@@ -1,4 +1,4 @@
-import { isEscapeKey } from './util.js';
+import { isEscapeKey, toggleBody } from './util.js';
 
 const COMMENTS_LOADING = 5;
 
@@ -63,7 +63,7 @@ const renderComments = () => {
 //открываем миниатюру
 const openBigPicture = (data) => {
   bigPictureElement.classList.remove('hidden');
-  document.body.classList.add('modal-open');
+  toggleBody();
   commentsLoaderElement.classList.add('hidden');
   document.addEventListener('keydown', onBigPictureEscKeydown);
 
@@ -77,16 +77,10 @@ const openBigPicture = (data) => {
 //скрываем окно с изображением
 const hideBigPicture = () => {
   bigPictureElement.classList.add('hidden');
-  document.body.classList.remove('modal-open');
+  toggleBody();
   document.removeEventListener('keydown', onBigPictureEscKeydown);
   commentsShown = 0;
 };
-
-const onCloseButtonClick = () => hideBigPicture();
-const onCommentsLoaderClick = () => renderComments();
-
-closeButtonElement.addEventListener('click', onCloseButtonClick);
-commentsLoaderElement.addEventListener('click', onCommentsLoaderClick);
 
 function onBigPictureEscKeydown (evt) {
   if (isEscapeKey(evt)) {
@@ -94,5 +88,11 @@ function onBigPictureEscKeydown (evt) {
     hideBigPicture();
   }
 }
+
+const onCloseButtonClick = () => hideBigPicture();
+const onCommentsLoaderClick = () => renderComments();
+
+closeButtonElement.addEventListener('click', onCloseButtonClick);
+commentsLoaderElement.addEventListener('click', onCommentsLoaderClick);
 
 export { openBigPicture };
