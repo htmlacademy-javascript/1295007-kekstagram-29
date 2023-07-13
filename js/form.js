@@ -1,4 +1,4 @@
-import { isEscapeKey } from './util.js';
+import { isEscapeKey, toggleBody } from './util.js';
 import { resetScale } from './scale.js';
 import {
   destroySlider,
@@ -32,7 +32,7 @@ const openModal = () => {
   uploadOverlay.classList.remove('hidden');
   createSlider();
   startConfigsSlider();
-  document.body.classList.add('modal-open');
+  toggleBody();
   document.addEventListener('keydown', onModalKeydown);
 };
 
@@ -42,7 +42,7 @@ const hideModal = () => {
   destroySlider();
   pristine.reset();
   uploadOverlay.classList.add('hidden');
-  document.body.classList.remove('modal-open');
+  toggleBody();
   document.removeEventListener('keydown', onModalKeydown);
 };
 

@@ -95,32 +95,48 @@ const showSlider = () => {
 
 effectsList.addEventListener('change', (evt) => {
 
-  sliderElement.noUiSlider.on('update', () => {
-    effectValueElement.value = sliderElement.noUiSlider.get();
-  });
+  showSlider();
 
-  if (evt.target.id === 'effect-none') {
-    startConfigsSlider();
-    imagePreviewElement.style.filter = '';
-  } else {
-    showSlider();
-  }
-
-  if (evt.target.id === 'effect-chrome') {
-    updateSlider('chrome');
-    imagePreviewElement.style.filter = `grayscale(${effectValueElement.value})`;
-  } else if (evt.target.id === 'effect-sepia') {
-    updateSlider('sepia');
-    imagePreviewElement.style.filter = `sepia(${effectValueElement.value})`;
-  } else if (evt.target.id === 'effect-marvin') {
-    updateSlider('marvin');
-    imagePreviewElement.style.filter = `invert(${effectValueElement.value}%)`;
-  } else if (evt.target.id === 'effect-phobos') {
-    updateSlider('phobos');
-    imagePreviewElement.style.filter = `blur(${effectValueElement.value}px)`;
-  } else if (evt.target.id === 'effect-heat') {
-    updateSlider('heat');
-    imagePreviewElement.style.filter = `brightness(${effectValueElement.value})`;
+  switch (evt.target.id) {
+    case 'effect-none':
+      startConfigsSlider();
+      imagePreviewElement.style.filter = '';
+      break;
+    case 'effect-chrome':
+      updateSlider('chrome');
+      sliderElement.noUiSlider.on('update', () => {
+        effectValueElement.value = sliderElement.noUiSlider.get();
+        imagePreviewElement.style.filter = `grayscale(${effectValueElement.value})`;
+      });
+      break;
+    case 'effect-sepia':
+      updateSlider('sepia');
+      sliderElement.noUiSlider.on('update', () => {
+        effectValueElement.value = sliderElement.noUiSlider.get();
+        imagePreviewElement.style.filter = `sepia(${effectValueElement.value})`;
+      });
+      break;
+    case 'effect-marvin':
+      updateSlider('marvin');
+      sliderElement.noUiSlider.on('update', () => {
+        effectValueElement.value = sliderElement.noUiSlider.get();
+        imagePreviewElement.style.filter = `invert(${effectValueElement.value}%)`;
+      });
+      break;
+    case 'effect-phobos':
+      updateSlider('phobos');
+      sliderElement.noUiSlider.on('update', () => {
+        effectValueElement.value = sliderElement.noUiSlider.get();
+        imagePreviewElement.style.filter = `blur(${effectValueElement.value}px)`;
+      });
+      break;
+    case 'effect-heat':
+      updateSlider('heat');
+      sliderElement.noUiSlider.on('update', () => {
+        effectValueElement.value = sliderElement.noUiSlider.get();
+        imagePreviewElement.style.filter = `brightness(${effectValueElement.value})`;
+      });
+      break;
   }
 });
 
