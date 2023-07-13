@@ -8,8 +8,8 @@ const createPicture = ({ url, description, likes, comments, id }) => {
   pictureElement.href = url;
   pictureElement.querySelector('.picture__img').src = url;
   pictureElement.querySelector('.picture__img').alt = description;
-  pictureElement.querySelector('.picture__info').querySelector('.picture__comments').textContent = likes;
-  pictureElement.querySelector('.picture__info').querySelector('.picture__likes').textContent = comments.length;
+  pictureElement.querySelector('.picture__info').querySelector('.picture__likes').textContent = likes;
+  pictureElement.querySelector('.picture__info').querySelector('.picture__comments').textContent = comments.length;
   pictureElement.dataset.id = id;
 
   return pictureElement;

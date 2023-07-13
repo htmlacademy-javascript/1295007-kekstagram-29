@@ -82,17 +82,17 @@ const hideBigPicture = () => {
   commentsShown = 0;
 };
 
-const onCloseButtonClick = () => hideBigPicture();
-const onCommentsLoaderClick = () => renderComments();
-
-closeButtonElement.addEventListener('click', onCloseButtonClick);
-commentsLoaderElement.addEventListener('click', onCommentsLoaderClick);
-
 function onBigPictureEscKeydown (evt) {
   if (isEscapeKey(evt)) {
     evt.preventDefault();
     hideBigPicture();
   }
 }
+
+const onCloseButtonClick = () => hideBigPicture();
+const onCommentsLoaderClick = () => renderComments();
+
+closeButtonElement.addEventListener('click', onCloseButtonClick);
+commentsLoaderElement.addEventListener('click', onCommentsLoaderClick);
 
 export { openBigPicture };
