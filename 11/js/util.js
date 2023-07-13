@@ -27,10 +27,12 @@ const createRandomIdFromRangeGenerator = (min, max) => {
 };
 
 const isEscapeKey = (evt) => evt.key === 'Escape';
+const toggleBody = () => document.body.classList.toggle('modal-open');
 
 export {
   getRandomInteger,
   getRandomArrayElement,
   createRandomIdFromRangeGenerator,
-  isEscapeKey
+  isEscapeKey,
+  toggleBody
 };
