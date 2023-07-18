@@ -6,12 +6,18 @@ import {
   startConfigsSlider
 } from './slider.js';
 
+const SubmitButtonText = {
+  IDLE: 'Опубликовать',
+  SENDING: 'Публикуем...'
+};
+
 const uploadForm = document.querySelector('.img-upload__form');
 const fileField = uploadForm.querySelector('.img-upload__input');
 const uploadOverlay = uploadForm.querySelector('.img-upload__overlay');
 const closeButton = uploadForm.querySelector('.img-upload__cancel');
 const hashtagField = uploadForm.querySelector('.text__hashtags');
 const commentField = uploadForm.querySelector('.text__description');
+const submitButton = uploadForm.querySelector('.img-upload__submit');
 
 const VALID_HASHTAG = /^#[a-zа-яë0-9]{1,19}$/i;
 const MAX_COUNT_HASHTAG = 5;
@@ -88,18 +94,39 @@ pristine.addValidator(
 const onCloseButtonClick = () => hideModal();
 const onFileFieldChange = () => openModal();
 
-const onFormSubmit = (evt) => {
-  evt.preventDefault();
-  pristine.validate();
+const blockSubmitButton = () => {
+  submitButton.disabled = true;
+  submitButton.textContent = SubmitButtonText.SENDING;
 };
 
-function onModalKeydown (evt) {
+const unblockSubmitButton = () => {
+  submitButton.disabled = false;
+  submitButton.textContent = SubmitButtonText.IDLE;
+};
+
+const setUserFormSubmit = (cb) => {
+  uploadForm.addEventListener('submit', async (evt) => {
+    evt.preventDefault();
+
+    const isValid = pristine.validate();
+    if (isValid) {
+      blockSubmitButton();
+      await cb(new FormData(uploadForm));
+      unblockSubmitButton();
+    }
+  });
+};
+
+function onModalKeydown(evt) {
   if (isEscapeKey(evt) && !(document.activeElement === hashtagField || document.activeElement === commentField)) {
     evt.preventDefault();
-    hideModal();
+    if (!(document.querySelector('.success') || document.querySelector('.error'))) {
+      hideModal();
+    }
   }
 }
 
 fileField.addEventListener('change', onFileFieldChange);
 closeButton.addEventListener('click', onCloseButtonClick);
-uploadForm.addEventListener('submit', onFormSubmit);
+
+export { setUserFormSubmit, hideModal };
