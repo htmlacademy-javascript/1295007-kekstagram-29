@@ -3,13 +3,9 @@ import { resetScale } from './scale.js';
 import {
   destroySlider,
   createSlider,
-  startConfigsSlider
+  startConfigsSlider,
+  imagePreviewElement
 } from './slider.js';
-
-const SubmitButtonText = {
-  IDLE: 'Опубликовать',
-  SENDING: 'Публикуем...'
-};
 
 const uploadForm = document.querySelector('.img-upload__form');
 const fileField = uploadForm.querySelector('.img-upload__input');
@@ -18,14 +14,21 @@ const closeButton = uploadForm.querySelector('.img-upload__cancel');
 const hashtagField = uploadForm.querySelector('.text__hashtags');
 const commentField = uploadForm.querySelector('.text__description');
 const submitButton = uploadForm.querySelector('.img-upload__submit');
+const effectsContainer = document.querySelectorAll('.effects__preview');
 
 const VALID_HASHTAG = /^#[a-zа-яë0-9]{1,19}$/i;
 const MAX_COUNT_HASHTAG = 5;
+const FILE_TYPES = ['jpg', 'jpeg', 'png'];
 
 const ERROR_TEXT = {
   invalidCount: `Укажите максимум ${MAX_COUNT_HASHTAG} хэш-тегов`,
   invalidHashtag: 'Введён невалидный хэш-тег',
   notUnique: 'Хэш-теги повторяются'
+};
+
+const SubmitButtonText = {
+  STANDARD: 'Опубликовать',
+  SENDING: 'Публикуем...'
 };
 
 const pristine = new Pristine(uploadForm, {
@@ -52,8 +55,7 @@ const hideModal = () => {
   document.removeEventListener('keydown', onModalKeydown);
 };
 
-const normalizeHashtags = (hashtagString) => hashtagString
-  .trim().split(' ').filter((hashtag) => Boolean(hashtag.length));
+const normalizeHashtags = (hashtagString) => hashtagString.trim().split(' ').filter((hashtag) => Boolean(hashtag.length));
 
 // Проверка на валидность
 const validateHashtag = (value) => normalizeHashtags(value).every((item) => VALID_HASHTAG.test(item));
@@ -91,9 +93,6 @@ pristine.addValidator(
   true
 );
 
-const onCloseButtonClick = () => hideModal();
-const onFileFieldChange = () => openModal();
-
 const blockSubmitButton = () => {
   submitButton.disabled = true;
   submitButton.textContent = SubmitButtonText.SENDING;
@@ -101,7 +100,7 @@ const blockSubmitButton = () => {
 
 const unblockSubmitButton = () => {
   submitButton.disabled = false;
-  submitButton.textContent = SubmitButtonText.IDLE;
+  submitButton.textContent = SubmitButtonText.STANDARD;
 };
 
 const setUserFormSubmit = (cb) => {
@@ -117,6 +116,22 @@ const setUserFormSubmit = (cb) => {
   });
 };
 
+const onFileFieldChange = () => openModal();
+
+fileField.addEventListener('change', () => {
+  const file = fileField.files[0];
+  const fileName = file.name.toLowerCase();
+
+  const compare = FILE_TYPES.some((value) => fileName.endsWith(value));
+  if (compare) {
+    imagePreviewElement.src = URL.createObjectURL(file);
+    effectsContainer.forEach((item) => {
+      item.style.backgroundImage = `url('${imagePreviewElement.src}')`;
+    });
+    onFileFieldChange();
+  }
+});
+
 function onModalKeydown(evt) {
   if (isEscapeKey(evt) && !(document.activeElement === hashtagField || document.activeElement === commentField)) {
     evt.preventDefault();
@@ -126,7 +141,7 @@ function onModalKeydown(evt) {
   }
 }
 
-fileField.addEventListener('change', onFileFieldChange);
+const onCloseButtonClick = () => hideModal();
 closeButton.addEventListener('click', onCloseButtonClick);
 
 export { setUserFormSubmit, hideModal };

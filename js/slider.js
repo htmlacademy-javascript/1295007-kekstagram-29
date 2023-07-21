@@ -4,7 +4,7 @@ const effectValueContainer = document.querySelector('.img-upload__effect-level')
 const sliderElement = document.querySelector('.effect-level__slider');
 const effectsList = document.querySelector('.effects__list');
 
-const sliderOptions = {
+const SliderOptions = {
   none: {
     range: {
       min: 0,
@@ -77,7 +77,7 @@ const createSlider = () => {
   });
 };
 
-const updateSlider = (effect) => sliderElement.noUiSlider.updateOptions(sliderOptions[effect]);
+const updateSlider = (effect) => sliderElement.noUiSlider.updateOptions(SliderOptions[effect]);
 
 const startConfigsSlider = () => {
   effectValueContainer.classList.add('hidden');
@@ -93,6 +93,13 @@ const showSlider = () => {
   effectValueContainer.classList.remove('hidden');
 };
 
+const changeEffect = (effect, level) => {
+  sliderElement.noUiSlider.on('update', () => {
+    effectValueElement.value = sliderElement.noUiSlider.get();
+    imagePreviewElement.style.filter = `${effect}(${effectValueElement.value}${level})`;
+  });
+};
+
 effectsList.addEventListener('change', (evt) => {
 
   showSlider();
@@ -104,38 +111,23 @@ effectsList.addEventListener('change', (evt) => {
       break;
     case 'effect-chrome':
       updateSlider('chrome');
-      sliderElement.noUiSlider.on('update', () => {
-        effectValueElement.value = sliderElement.noUiSlider.get();
-        imagePreviewElement.style.filter = `grayscale(${effectValueElement.value})`;
-      });
+      changeEffect('grayscale', '');
       break;
     case 'effect-sepia':
       updateSlider('sepia');
-      sliderElement.noUiSlider.on('update', () => {
-        effectValueElement.value = sliderElement.noUiSlider.get();
-        imagePreviewElement.style.filter = `sepia(${effectValueElement.value})`;
-      });
+      changeEffect('sepia', '');
       break;
     case 'effect-marvin':
       updateSlider('marvin');
-      sliderElement.noUiSlider.on('update', () => {
-        effectValueElement.value = sliderElement.noUiSlider.get();
-        imagePreviewElement.style.filter = `invert(${effectValueElement.value}%)`;
-      });
+      changeEffect('invert', '%');
       break;
     case 'effect-phobos':
       updateSlider('phobos');
-      sliderElement.noUiSlider.on('update', () => {
-        effectValueElement.value = sliderElement.noUiSlider.get();
-        imagePreviewElement.style.filter = `blur(${effectValueElement.value}px)`;
-      });
+      changeEffect('blur', 'px');
       break;
     case 'effect-heat':
       updateSlider('heat');
-      sliderElement.noUiSlider.on('update', () => {
-        effectValueElement.value = sliderElement.noUiSlider.get();
-        imagePreviewElement.style.filter = `brightness(${effectValueElement.value})`;
-      });
+      changeEffect('brightness', '');
       break;
   }
 });
@@ -143,5 +135,6 @@ effectsList.addEventListener('change', (evt) => {
 export {
   destroySlider,
   createSlider,
-  startConfigsSlider
+  startConfigsSlider,
+  imagePreviewElement
 };
