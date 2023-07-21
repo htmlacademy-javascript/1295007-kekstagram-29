@@ -91,4 +91,4 @@ const preparingDataForSorting = (data, cb) => {
   changeOnSortingClick(cb);
 };
 
-export { renderGallery, renderPictures, getSortingPictures, preparingDataForSorting };
+export { renderGallery, renderPictures, preparingDataForSorting };
