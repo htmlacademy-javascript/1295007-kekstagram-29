@@ -39,6 +39,7 @@ const pristine = new Pristine(uploadForm, {
 
 const openModal = () => {
   uploadOverlay.classList.remove('hidden');
+  commentField.textContent = '';
   createSlider();
   startConfigsSlider();
   toggleBody();
