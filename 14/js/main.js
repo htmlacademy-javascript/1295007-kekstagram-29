@@ -2,7 +2,7 @@ import './form.js';
 import './scale.js';
 import './slider.js';
 
-import { renderGallery, getSortingPictures, preparingDataForSorting } from './pictures.js';
+import { renderGallery, preparingDataForSorting } from './pictures.js';
 import { showAlert, debounce } from './util.js';
 import { getData, sendData } from './api.js';
 import { setUserFormSubmit, hideModal } from './form.js';
