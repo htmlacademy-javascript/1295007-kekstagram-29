@@ -20,8 +20,8 @@ setUserFormSubmit(async (data) => {
 
 try {
   const data = await getData();
+  renderGallery(data);
   preparingDataForSorting(data, debounce(renderGallery));
-  renderGallery(getSortingPictures());
 } catch (err) {
   showAlert(err.message);
 }
