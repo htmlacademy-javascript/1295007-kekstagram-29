@@ -1,12 +1,12 @@
-const scaleControlSmallerElement = document.querySelector('.scale__control--smaller');
-const scaleControlBiggerElement = document.querySelector('.scale__control--bigger');
-const scaleControlInputElement = document.querySelector('.scale__control--value');
-const imageElement = document.querySelector('.img-upload__preview img');
-
 const SCALE_STEP = 25;
 const SCALE_DEFAULT = 100;
 const SCALE_MAX = 100;
 const SCALE_MIN = 25;
+
+const scaleControlSmallerElement = document.querySelector('.scale__control--smaller');
+const scaleControlBiggerElement = document.querySelector('.scale__control--bigger');
+const scaleControlInputElement = document.querySelector('.scale__control--value');
+const imageElement = document.querySelector('.img-upload__preview img');
 
 const scaleImage = (value) => {
   imageElement.style.transform = `scale(${value / 100})`;

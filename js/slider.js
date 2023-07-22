@@ -1,8 +1,8 @@
 const imagePreviewElement = document.querySelector('.img-upload__preview img');
 const effectValueElement = document.querySelector('.effect-level__value');
-const effectValueContainer = document.querySelector('.img-upload__effect-level');
+const effectValueContainerElement = document.querySelector('.img-upload__effect-level');
 const sliderElement = document.querySelector('.effect-level__slider');
-const effectsList = document.querySelector('.effects__list');
+const effectsListElement = document.querySelector('.effects__list');
 
 const SliderOptions = {
   none: {
@@ -80,17 +80,17 @@ const createSlider = () => {
 const updateSlider = (effect) => sliderElement.noUiSlider.updateOptions(SliderOptions[effect]);
 
 const startConfigsSlider = () => {
-  effectValueContainer.classList.add('hidden');
+  effectValueContainerElement.classList.add('hidden');
 };
 
 const destroySlider = () => {
   sliderElement.noUiSlider.destroy();
-  effectValueContainer.classList.add('hidden');
+  effectValueContainerElement.classList.add('hidden');
   imagePreviewElement.style.filter = '';
 };
 
 const showSlider = () => {
-  effectValueContainer.classList.remove('hidden');
+  effectValueContainerElement.classList.remove('hidden');
 };
 
 const changeEffect = (effect, level) => {
@@ -100,7 +100,7 @@ const changeEffect = (effect, level) => {
   });
 };
 
-effectsList.addEventListener('change', (evt) => {
+effectsListElement.addEventListener('change', (evt) => {
 
   showSlider();
 
