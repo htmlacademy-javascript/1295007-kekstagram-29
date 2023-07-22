@@ -1,20 +1,18 @@
 import { openBigPicture } from './big-picture.js';
 
-const picturesContainer = document.querySelector('.pictures');
-const pictureElementTemplate = document.querySelector('#picture')
-  .content.querySelector('.picture');
-const container = document.querySelector('.pictures');
-
-const sortingElement = document.querySelector('.img-filters');
-
 const Sorting = {
   DEFAULT: 'filter-default',
   RANDOM: 'filter-random',
   DISCUSSED: 'filter-discussed'
 };
 
-let currentSorting = Sorting.DEFAULT;
+const picturesContainerElement = document.querySelector('.pictures');
+const pictureElementTemplate = document.querySelector('#picture')
+  .content.querySelector('.picture');
+const containerElement = document.querySelector('.pictures');
+const sortingElement = document.querySelector('.img-filters');
 
+let currentSorting = Sorting.DEFAULT;
 let pictures = [];
 
 const createPicture = ({ url, description, likes, comments, id }) => {
@@ -31,13 +29,13 @@ const createPicture = ({ url, description, likes, comments, id }) => {
 };
 
 const renderPictures = (data) => {
-  container.querySelectorAll('.picture').forEach((item) => item.remove());
+  containerElement.querySelectorAll('.picture').forEach((item) => item.remove());
   const picturesListFragment = document.createDocumentFragment();
   data
     .forEach((picture) => {
       picturesListFragment.append(createPicture(picture));
     });
-  picturesContainer.append(picturesListFragment);
+  picturesContainerElement.append(picturesListFragment);
 };
 
 const onContainerClick = (evt) => {
@@ -54,7 +52,7 @@ const onContainerClick = (evt) => {
 
 const renderGallery = (data) => {
   renderPictures(data);
-  container.addEventListener('click', onContainerClick);
+  containerElement.addEventListener('click', onContainerClick);
 };
 
 const getSortingPictures = () => {

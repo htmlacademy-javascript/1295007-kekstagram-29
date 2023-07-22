@@ -1,5 +1,7 @@
 import { isEscapeKey, toggleBody } from './util.js';
 
+const COMMENTS_LOADING = 5;
+
 const bigPictureElement = document.querySelector('.big-picture');
 const commentShownCountElement = bigPictureElement.querySelector('.comments-shown');
 const commentCountElement = bigPictureElement.querySelector('.comments-count');
@@ -9,7 +11,6 @@ const closeButtonElement = document.querySelector('.big-picture__cancel');
 const commentElement = commentListElement.querySelector('.social__comment');
 
 let commentsShown = 0;
-const COMMENTS_LOADING = 5;
 let comments = [];
 
 //заполняем данные из объекта, который использовался для отображения миниатюры

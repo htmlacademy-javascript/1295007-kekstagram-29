@@ -1,22 +1,22 @@
 import { isEscapeKey } from './util.js';
 
-const successPopup = document.querySelector('#success').content.querySelector('.success').cloneNode(true);
-const successButton = successPopup.querySelector('.success__button');
-const errorPopup = document.querySelector('#error').content.querySelector('.error').cloneNode(true);
-const errorButton = errorPopup.querySelector('.error__button');
-const body = document.body;
+const successPopupElement = document.querySelector('#success').content.querySelector('.success').cloneNode(true);
+const successButtonElement = successPopupElement.querySelector('.success__button');
+const errorPopupElement = document.querySelector('#error').content.querySelector('.error').cloneNode(true);
+const errorButtonElement = errorPopupElement.querySelector('.error__button');
+const bodyElement = document.body;
 
 function deleteMessage() {
   const messageElement = document.querySelector('.success') || document.querySelector('.error');
   messageElement.remove();
   document.removeEventListener('keydown', onMessageKeydown);
-  body.removeEventListener('click', onOverlayClick);
+  bodyElement.removeEventListener('click', onOverlayClick);
 }
 
 const showMessagePopup = (popup, closeButton) => {
-  body.append(popup);
+  bodyElement.append(popup);
   document.addEventListener('keydown', onMessageKeydown);
-  body.addEventListener('click', onOverlayClick);
+  bodyElement.addEventListener('click', onOverlayClick);
   closeButton.addEventListener('click', deleteMessage);
 };
 
@@ -34,7 +34,7 @@ function onOverlayClick(evt) {
   deleteMessage();
 }
 
-const showSuccessPopup = () => showMessagePopup(successPopup, successButton);
-const showErrorPopup = () => showMessagePopup(errorPopup, errorButton);
+const showSuccessPopup = () => showMessagePopup(successPopupElement, successButtonElement);
+const showErrorPopup = () => showMessagePopup(errorPopupElement, errorButtonElement);
 
 export { showSuccessPopup, showErrorPopup };
